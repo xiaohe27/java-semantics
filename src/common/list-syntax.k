@@ -40,7 +40,7 @@ syntax Dims         ::= List{Dim,""} // [klabel('DimList)]
 syntax DimExps      ::= List{DimExp,""} [strict]
 syntax VarInits     ::= List{VarInit, ","} // [klabel('VarInitList)]
 syntax CatchClauses ::= List{CatchClause,""} [strict]
-syntax Params       ::= List{Param, ","}
+syntax Params       ::= List{Param, ","} [strict, result(ExtKResult), klabel('FormalParamList)]
 
 syntax UserList     ::= BlockStmList
                       | SwitchGroupList
@@ -95,7 +95,7 @@ rule '.List`{"'TypeParamList"`}(.KList)   => [.KList]                           
 rule '.List`{"'AbstractMethodModList"`}(.KList)   => [.KList]                       [macro]
 rule '.List`{"'AnnoAbstractMethodModList"`}(.KList)   => [.KList]                   [macro]
 rule '.List`{"'AnnoMethodModList"`}(.KList)   => [.KList]                           [macro]
-rule '.List`{"'AnnoVarModList"`}(.KList)   => [.KList]                              [macro]
+//rule '.List`{"'AnnoVarModList"`}(.KList)   => [.KList]                              [macro]
 rule '.List`{"'AnnoClassModList"`}(.KList)   => [.KList]                            [macro]
 rule '.List`{"'AnnoConstrModList"`}(.KList)   => [.KList]                           [macro]
 rule '.List`{"'AnnoFieldModList"`}(.KList)   => [.KList]                            [macro]
@@ -112,7 +112,8 @@ rule '.List`{"'DimExprList"`}(.KList)   => [.KList]                             
 rule '.List`{"'ExprList"`}(.KList)   => [.KList]                                    [macro]
 rule '.List`{"'VarInitList"`}(.KList)   => [.KList]                                 [macro]
 rule '.List`{"'CatchClauseList"`}(.KList)   => [.KList]                             [macro]
-rule '.List`{"'FormalParamList"`}(.KList)   => [.KList]                             [macro]
+//rule '.List`{"'FormalParamList"`}(.KList)   => [.KList]                             [macro]
+rule 'AnnoVarModList(_) => .AnnoVarModList [macro]
 
 rule 'SwitchLabelList(Hd,,[Tl:KList])           => [Hd,,Tl]         [macro]
 rule 'SwitchGroupList(Hd,,[Tl:KList])           => [Hd,,Tl]         [macro]

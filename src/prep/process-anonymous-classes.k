@@ -72,51 +72,51 @@ syntax KItem ::=  processAnonymousClass (
     separate variable declaration. But this would complicate the semantics too much. So in theory,
     we could eliminate stmtAndExp even from this place.
 */
-rule [processAnonymousClass]:
-    processAnonymousClass(
-      Name:Id,
-      BaseClass:ClassType,
-      [BaseInterfaces:KList],
-      Arg1:K,
-      [ActualArgs:KList],
-      [AnonClassDecs:KList],
-      kr[ConstructorFormalParams:KList],
-      kr[ConstructorFirstLineArgs:KList]
-    )
-    => elab(
-      stmtAndExp(
-        'ClassDecStm(
-          'ClassDec(
-            'ClassDecHead(
-              [.KList],,
-              Name,,
-              'None(.KList),,
-              'Some('SuperDec(BaseClass)),,
-              'Some('ImplementsDec([BaseInterfaces]))
-            ),,
-            'ClassBody([
-              AnonClassDecs,,
-
-              //Anonymous class constructor
-              'ConstrDec(
-                'ConstrDecHead(
-                  ['Public(.KList)],,
-                  'None(.KList),,
-                  Name,,
-                  [ConstructorFormalParams],,
-                  'None(.KList)
-                ),,
-                'ConstrBody(
-                  'Some('SuperConstrInv('None(.KList),,[ConstructorFirstLineArgs])),,
-                  [.KList]
-                )
-              )
-            ])
-          )
-        ),
-        'NewInstance(Arg1,, 'TypeName(Name),, elabRes([ActualArgs]),, 'None(.KList))
-      )
-    )
+//rule [processAnonymousClass]:
+//    processAnonymousClass(
+//      Name:Id,
+//      BaseClass:ClassType,
+//      [BaseInterfaces:KList],
+//      Arg1:K,
+//      [ActualArgs:KList],
+//      [AnonClassDecs:KList],
+//      kr[ConstructorFormalParams:KList],
+//      kr[ConstructorFirstLineArgs:KList]
+//    )
+//    => elab(
+//      stmtAndExp(
+//        'ClassDecStm(
+//          'ClassDec(
+//            'ClassDecHead(
+//              [.KList],,
+//              Name,,
+//              'None(.KList),,
+//              'Some('SuperDec(BaseClass)),,
+//              'Some('ImplementsDec([BaseInterfaces]))
+//            ),,
+//            'ClassBody([
+//              AnonClassDecs,,
+//
+//              //Anonymous class constructor
+//              'ConstrDec(
+//                'ConstrDecHead(
+//                  ['Public(.KList)],,
+//                  'None(.KList),,
+//                  Name,,
+//                  [ConstructorFormalParams],,
+//                  'None(.KList)
+//                ),,
+//                'ConstrBody(
+//                  'Some('SuperConstrInv('None(.KList),,[ConstructorFirstLineArgs])),,
+//                  [.KList]
+//                )
+//              )
+//            ])
+//          )
+//        ),
+//        'NewInstance(Arg1,, 'TypeName(Name),, elabRes([ActualArgs]),, 'None(.KList))
+//      )
+//    )
 
 /*@ Build the part of the constructor of an anonymous class definition corresponding
 to formal params, and arguments of the superclass constructor invocation, respectively
@@ -178,50 +178,50 @@ syntax KItem ::=  processQAnonymousClass (
               )
               [strict(7,8)]
 
-rule [processQAnonymousClass]:
-    processQAnonymousClass(
-      Name:Id,
-      BaseClass:ClassType,
-      TypedQual:K,
-      Arg2:K,
-      [ActualArgs:KList],
-      [AnonClassDecs:KList],
-      kr[ConstructorFormalParams:KList],
-      kr[ConstrQual:K,, ConstructorFirstLineArgs:KList]
-    )
-    => elab(
-      stmtAndExp(
-        'ClassDecStm(
-          'ClassDec(
-            'ClassDecHead(
-              [.KList],,
-              Name,,
-              'None(.KList),,
-              'Some('SuperDec(BaseClass)),,
-              'Some('ImplementsDec([.KList]))
-            ),,
-            'ClassBody([
-              AnonClassDecs,,
-
-              //Anonymous class constructor
-              'ConstrDec(
-                'ConstrDecHead(
-                  ['Public(.KList)],,
-                  'None(.KList),,
-                  Name,,
-                  [ConstructorFormalParams],,
-                  'None(.KList)
-                ),,
-                'ConstrBody(
-                  'Some('QSuperConstrInv(ConstrQual,,'None(.KList),,[ConstructorFirstLineArgs])),,
-                  [.KList]
-                )
-              )
-            ])
-          )
-        ),
-        'NewInstance(Arg2,, 'TypeName(Name),, elabRes([TypedQual,, ActualArgs]),, 'None(.KList))
-      )
-    )
+//rule [processQAnonymousClass]:
+//    processQAnonymousClass(
+//      Name:Id,
+//      BaseClass:ClassType,
+//      TypedQual:K,
+//      Arg2:K,
+//      [ActualArgs:KList],
+//      [AnonClassDecs:KList],
+//      kr[ConstructorFormalParams:KList],
+//      kr[ConstrQual:K,, ConstructorFirstLineArgs:KList]
+//    )
+//    => elab(
+//      stmtAndExp(
+//        'ClassDecStm(
+//          'ClassDec(
+//            'ClassDecHead(
+//              [.KList],,
+//              Name,,
+//              'None(.KList),,
+//              'Some('SuperDec(BaseClass)),,
+//              'Some('ImplementsDec([.KList]))
+//            ),,
+//            'ClassBody([
+//              AnonClassDecs,,
+//
+//              //Anonymous class constructor
+//              'ConstrDec(
+//                'ConstrDecHead(
+//                  ['Public(.KList)],,
+//                  'None(.KList),,
+//                  Name,,
+//                  [ConstructorFormalParams],,
+//                  'None(.KList)
+//                ),,
+//                'ConstrBody(
+//                  'Some('QSuperConstrInv(ConstrQual,,'None(.KList),,[ConstructorFirstLineArgs])),,
+//                  [.KList]
+//                )
+//              )
+//            ])
+//          )
+//        ),
+//        'NewInstance(Arg2,, 'TypeName(Name),, elabRes([TypedQual,, ActualArgs]),, 'None(.KList))
+//      )
+//    )
 
 endmodule

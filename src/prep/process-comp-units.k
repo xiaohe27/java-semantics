@@ -142,7 +142,7 @@ rule [processTypeDecsInPCUPhase-ClassDec]:
                     ['Public(.KList)],,
                     'None(.KList),,
                     getSimpleName(Class),,
-                    [.KList],,
+                    .Params,,
                     'None(.KList)
                   ),,
                   'ConstrBody('None(.KList),, [.KList])

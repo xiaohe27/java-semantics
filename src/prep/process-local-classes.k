@@ -326,6 +326,8 @@ rule haveUnaugmentedConstructors(ConsName:Id, LocalEnvClass:ClassType,
 when
      getLastKListElement([TList]) ==K LocalEnvClass
 
+rule haveUnaugmentedConstructors(_, _, .Map) => false
+
 //@ Elaborates the given node and saves it to <elabBuffer>
 syntax KItem ::= appendToElabBuffer ( K ) //[strict, context(result(ElabKResult))] //K bug generalized strictness
 context appendToElabBuffer ( HOLE )              [result(ElabKResult)]
