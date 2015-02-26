@@ -234,10 +234,6 @@ context 'MethodDec('MethodDecHead(_:K,, _:K,, HOLE,, _),, _)
 //Resolve parameter types
 context 'MethodDec('MethodDecHead(_:K,, _:K,, _:Type,, _:Id,, HOLE ,, _:K),, _:K)  [result(ExtKResult)]
 
-syntax ExtKResult ::= Param | Params
-
-rule isExtKResult(P:Params) => true
-
 rule [MethodDec]:
     <k>
       'MethodDec(

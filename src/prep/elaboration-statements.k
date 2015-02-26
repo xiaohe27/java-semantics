@@ -17,6 +17,7 @@ syntax KItem ::= isVarDecHolderLabel ( KLabel )                 [function]
 rule isVarDecHolderLabel('Block) => true
 rule isVarDecHolderLabel('For) => true
 rule isVarDecHolderLabel('Catch) => true
+rule isVarDecHolderLabel(_) => false [owise]
 
 /*@ In addition to what defaul elab heating does, when we heat the first argument of 'Block, 'For of 'Catch
 we need to save a copy of elaboration environment - e.g. the last entry of <elabEnv> <localTypes>.
@@ -138,6 +139,7 @@ rule [elabEnd-QSuperConstrInv]:
     => elabRes('QSuperConstrInv(Qual,, Arg2,, [ ExpectedArgExps ]))
 
 rule customElabEnd('AltConstrInv) => true
+rule customElabEnd(_) => false [owise]
 
 rule [elabEnd-AltConstrInv-local-augment-arguments]:
     <k>

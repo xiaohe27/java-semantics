@@ -40,7 +40,12 @@ syntax Dims         ::= List{Dim,""} // [klabel('DimList)]
 syntax DimExps      ::= List{DimExp,""} [strict]
 syntax VarInits     ::= List{VarInit, ","} // [klabel('VarInitList)]
 syntax CatchClauses ::= List{CatchClause,""} [strict]
-syntax Params       ::= List{Param, ","} [strict, result(ExtKResult), klabel('FormalParamList)]
+syntax Params       ::= List{Param, ","} [klabel('FormalParamList)]
+syntax Param
+syntax ExtKResult ::= Param
+
+context 'FormalParamList(HOLE,,_) [result(ExtKResult)]
+context 'FormalParamList(_,,HOLE) [result(ExtKResult)]
 
 syntax UserList     ::= BlockStmList
                       | SwitchGroupList

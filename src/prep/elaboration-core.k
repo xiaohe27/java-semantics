@@ -101,6 +101,7 @@ rule [chainOfResponsibility-Result2]:
 syntax KItem ::= isElabKList ( KListWrap )                 [function]
 rule isElabKList([ElabKR:ElabKResult,, Ks:KList]) => isElabKList([Ks])
 rule isElabKList([.KList]) => true
+rule isElabKList(_) => false [owise]
 
 //@ Elaborate parameter type, if not elaborated yet. For catch clause.
 context  elab('Param(_:K,, HOLE,, _:Id))
@@ -184,6 +185,8 @@ rule haveElabRes([_,, elabRes(_),, _]) => true
 
 //K bug additional rule required since we introduced KListWrap? todo (Shijiao)
 //rule haveElabRes([_,, KList2KLabel _,, elabRes(_),, _ (_),, _]) => true
+
+rule haveElabRes(_) => false [owise]
 
 /*@ The 3rd elaboration-phase wrapper for expressions. Represents the case when children are completely elaborated and
 unwrapped from elabRes(), but root node might not be elaborated yet. The implementation is scattered across all modules

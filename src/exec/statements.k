@@ -338,7 +338,7 @@ rule [Throw]:
     (.K => checkCatch(subtype(typeOf(TV), T)))
 //    ~> 'Throw(TV:TypedVal)
     ~> throw TV:TypedVal;
-    ~> catchBlocks(catchImpl('ParamImpl(T:Type,, X:Id),_) _:CatchClauses)
+    ~> catchBlocks(catchImpl((A:AnnoVarModList T:Type X:Id),_) _:CatchClauses)
 
 syntax KItem ::= checkCatch ( K )
 context checkCatch(HOLE)
@@ -416,21 +416,19 @@ syntax CatchClause ::= "catch" "(" K ")" K          [klabel('Catch)]
 //resolve 'Param term of the catch clause
 context catch(HOLE)_                                [result(ExtKResult)]
 
-rule 'Param(_,, K:Type,, X:Id) => K X               [structural]
+//rule 'Param(_,, K:Type,, X:Id) => K X               [structural]
 
-rule catch(KR:ExtKResult)S:K => catchImpl(KR,S)
+rule catch(KR:KResult)S:K => catchImpl(KR,S)
 
 /*@ Extended K Result.
   Represents KLabels that should be treated as KResult during execution phase, but not during elaboration phase.
 */
-syntax ExtKResult ::= ParamImpl
-
 rule isExtKResult(KR:KResult) => true
 
 
 //@ Internal representation of a preprocessed catch clause
 syntax CatchImpl ::=  catchImpl (
-                      K,  //'Param(...),
+                      Param,  //'Param(...),
                       K   //the code block
                     )
 syntax KResult ::= CatchImpl

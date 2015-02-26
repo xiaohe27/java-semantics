@@ -38,7 +38,7 @@ rule [staticInit]:
 
             //catch clause of 'Try
               [
-                'Catch('ParamImpl(classObject,, String2Id("e") ),,
+                'Catch('Param(.AnnoVarModList,, classObject,, String2Id("e") ),,
                 'Block(throw new class String2Id("java.lang.ExceptionInInitializerError")
                 (((class String2Id("java.lang.Object")) String2Id("e")));))
               ]
