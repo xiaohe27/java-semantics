@@ -12,4 +12,7 @@ TOOLS_DIR="$( cd "$( dirname "$0" )" && pwd )"
 
 #PARSER_JAR=$(cross-path-native.sh ${TOOLS_DIR}/../parser/JavaParser.jar)
 PARSER_JAR=$(cross-path-native.sh ${TOOLS_DIR}/../parser/javafrontparserNew.jar)
+
+echo "invoke javaParser: java -jar ${PARSER_JAR} ${JAVA_FILE}"
+
 java -jar ${PARSER_JAR} ${JAVA_FILE}
