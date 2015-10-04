@@ -1,0 +1,234 @@
+module Program
+
+imports Common
+imports KBuiltinsBasic
+exports
+
+context-free syntax
+context-free priorities
+{
+    Id -> Type {}
+    Type "[" "]" -> Type {cons("Type1299Syn")}
+} > {
+    Types "->" Type -> Type {cons("Type1224Syn")}
+}
+
+context-free priorities
+{
+    Int -> Exp {}
+    Bool -> Exp {}
+    String -> Exp {}
+    Id -> Exp {}
+    "++" Exp -> Exp {cons("Exp169Syn")}
+    Exp "instanceOf" Id -> Exp {cons("Exp1453Syn")}
+    "(" InsertDzId ")" Exp -> Exp {cons("Exp1309Syn")}
+    Exp "." Id -> Exp {cons("Exp1306Syn")}
+} > {
+    Exp "[" InsertDzExps "]" -> Exp {cons("Exp1277Syn")}
+} > {
+    Exp "(" InsertDzExps ")" -> Exp {cons("Exp1334Syn")}
+    "-" Exp -> Exp {cons("Exp1389Syn")}
+} > { left:
+    Exp "*" Exp -> Exp {left, cons("Exp1393Syn")}
+    Exp "/" Exp -> Exp {left, cons("Exp1429Syn")}
+    Exp "%" Exp -> Exp {left, cons("Exp1268Syn")}
+} > { left:
+    Exp "+" Exp -> Exp {left, cons("Exp1373Syn")}
+    Exp "-" Exp -> Exp {left, cons("Exp1349Syn")}
+} > { non-assoc:
+    Exp "<" Exp -> Exp {non-assoc, cons("Exp149Syn")}
+    Exp "<=" Exp -> Exp {non-assoc, cons("Exp1386Syn")}
+    Exp ">" Exp -> Exp {non-assoc, cons("Exp1276Syn")}
+    Exp ">=" Exp -> Exp {non-assoc, cons("Exp145Syn")}
+    Exp "==" Exp -> Exp {non-assoc, cons("Exp1425Syn")}
+    Exp "!=" Exp -> Exp {non-assoc, cons("Exp1366Syn")}
+} > {
+    "!" Exp -> Exp {cons("Exp1445Syn")}
+} > { left:
+    Exp "&&" Exp -> Exp {left, cons("Exp1367Syn")}
+    Exp "||" Exp -> Exp {left, cons("Exp1294Syn")}
+} > {
+    "spawn" Block -> Exp {cons("Exp1456Syn")}
+} > {
+    Exp "=" Exp -> Exp {right, cons("Exp137Syn")}
+}
+
+context-free start-symbols
+DzString DzBool Types Stmts Params Ddecl String Int Stmt Float Type Bool Exps Param Block Id Exp DzInt DzFloat K
+context-free syntax
+    "acquire" InsertDzExp ";" -> Stmt {cons("Stmt1358Syn")}
+    "if" "(" InsertDzExp ")" InsertDzBlock "else" Block -> Stmt {cons("Stmt1357Syn")}
+    "read" "(" ")" -> Exp {cons("Exp163Syn")}
+    "return" InsertDzExp ";" -> Stmt {cons("Stmt12Syn")}
+    DzString -> String {}
+    "super" -> Exp {cons("Exp1270Syn")}
+    Exp ";" -> Stmt {cons("Stmt16Syn")}
+    "for" "(" InsertDzStmts InsertDzExp ";" InsertDzExp ")" Block -> Stmt {cons("Stmt1206Syn")}
+    DzInt -> Int {}
+    {Param ","}* -> Params {cons("Params1ListSyn")}
+    "join" InsertDzExp ";" -> Stmt {cons("Stmt1222Syn")}
+    Stmt -> Stmts {}
+    {Type ","}* -> Types {cons("Types1ListSyn")}
+    "try" InsertDzBlock "catch" "(" InsertDzParam ")" Block -> Stmt {cons("Stmt123Syn")}
+    DzFloat -> Float {}
+    Type InsertDzId "(" InsertDzParams ")" Block -> Ddecl {cons("Ddecl1464Syn")}
+    "sizeOf" "(" InsertDzExp ")" -> Exp {cons("Exp174Syn")}
+    "throw" InsertDzExp ";" -> Stmt {cons("Stmt1323Syn")}
+    Ddecl -> Stmt {}
+    Type InsertDzExps ";" -> Ddecl {cons("Ddecl134Syn")}
+    "release" InsertDzExp ";" -> Stmt {cons("Stmt1376Syn")}
+    "{" "}" -> Block {cons("Block1472Syn")}
+    "Object" -> Id {cons("Id180Syn")}
+    "void" -> Type {cons("Type1379Syn")}
+    Type Id -> Param {cons("Param1234Syn")}
+    "bool" -> Type {cons("Type182Syn")}
+    Stmts Stmts -> Stmts {right, cons("Stmts1237Syn")}
+    DzBool -> Bool {}
+    "{" InsertDzStmts "}" -> Block {cons("Block1436Syn")}
+    "(" InsertDzExp ")" -> Exp {cons("Exp1Bracket")}
+    "(" InsertDzType ")" -> Type {cons("Type1Bracket")}
+    "class" InsertDzId Block -> Ddecl {cons("Ddecl1289Syn")}
+    "int" -> Type {cons("Type1482Syn")}
+    Block -> Stmt {}
+    "while" "(" InsertDzExp ")" Block -> Stmt {cons("Stmt187Syn")}
+    {Exp ","}* -> Exps {cons("Exps1ListSyn")}
+    "print" "(" InsertDzExps ")" ";" -> Stmt {cons("Stmt1396Syn")}
+    "Main" -> Id {cons("Id1484Syn")}
+    "class" InsertDzId "extends" InsertDzId Block -> Ddecl {cons("Ddecl1252Syn")}
+    "return" ";" -> Stmt {cons("Stmt194Syn")}
+    "new" InsertDzId "(" InsertDzExps ")" -> Exp {cons("Exp1398Syn")}
+    "this" -> Exp {cons("Exp1444Syn")}
+    "string" -> Type {cons("Type1352Syn")}
+    "rendezvous" InsertDzExp ";" -> Stmt {cons("Stmt1488Syn")}
+    "if" "(" InsertDzExp ")" Block -> Stmt {cons("Stmt1405Syn")}
+    Type -> InsertDzType
+    Stmts -> InsertDzStmts
+    Exps -> InsertDzExps
+    Param -> InsertDzParam
+    Block -> InsertDzBlock
+    Params -> InsertDzParams
+    Id -> InsertDzId
+    Exp -> InsertDzExp
+
+
+    DzDzString        -> DzString    {cons("DzString1Const")}
+    DzDzBool        -> DzBool    {cons("DzBool1Const")}
+    DzDzInt        -> DzInt    {cons("DzInt1Const")}
+    DzDzId        -> DzId    {cons("DzId1Const")}
+    DzDzFloat        -> DzFloat    {cons("DzFloat1Const")}
+
+
+
+%% start symbols subsorts
+    KItem        -> K
+    DzString        -> K
+    DzBool        -> K
+    Stmts        -> K
+    Ddecl        -> K
+    String        -> K
+    Int        -> K
+    Stmt        -> K
+    Float        -> K
+    Type        -> K
+    Bool        -> K
+    Param        -> K
+    Block        -> K
+    Id        -> K
+    Exp        -> K
+    DzInt        -> K
+    DzFloat        -> K
+lexical syntax
+    "Infinity" -> DzDzFloat
+    "true" -> DzDzBool
+    "false" -> DzDzBool
+    "NaN" -> DzDzFloat
+
+
+    "sizeOf" -> IdDz {reject}
+    "release" -> IdDz {reject}
+    "while" -> IdDz {reject}
+    "instanceOf" -> IdDz {reject}
+    "else" -> IdDz {reject}
+    "rendezvous" -> IdDz {reject}
+    "catch" -> IdDz {reject}
+    "join" -> IdDz {reject}
+    "if" -> IdDz {reject}
+    "new" -> IdDz {reject}
+    "void" -> IdDz {reject}
+    "read" -> IdDz {reject}
+    "this" -> IdDz {reject}
+    "extends" -> IdDz {reject}
+    "true" -> IdDz {reject}
+    "Object" -> IdDz {reject}
+    "try" -> IdDz {reject}
+    "bool" -> IdDz {reject}
+    "string" -> IdDz {reject}
+    "for" -> IdDz {reject}
+    "acquire" -> IdDz {reject}
+    "NaN" -> IdDz {reject}
+    "class" -> IdDz {reject}
+    "Infinity" -> IdDz {reject}
+    "false" -> IdDz {reject}
+    "int" -> IdDz {reject}
+    "super" -> IdDz {reject}
+    "print" -> IdDz {reject}
+    "spawn" -> IdDz {reject}
+    "throw" -> IdDz {reject}
+    "Main" -> IdDz {reject}
+    "return" -> IdDz {reject}
+
+lexical restrictions
+    %% follow restrictions
+
+
+lexical syntax
+    [A-Za-z\_][A-Za-z0-9\_]* -> IdDz
+    "sizeOf" -> IdDz {reject}
+    "release" -> IdDz {reject}
+    "while" -> IdDz {reject}
+    "instanceOf" -> IdDz {reject}
+    "else" -> IdDz {reject}
+    "rendezvous" -> IdDz {reject}
+    "catch" -> IdDz {reject}
+    "join" -> IdDz {reject}
+    "if" -> IdDz {reject}
+    "new" -> IdDz {reject}
+    "void" -> IdDz {reject}
+    "read" -> IdDz {reject}
+    "this" -> IdDz {reject}
+    "extends" -> IdDz {reject}
+    "true" -> IdDz {reject}
+    "Object" -> IdDz {reject}
+    "try" -> IdDz {reject}
+    "bool" -> IdDz {reject}
+    "string" -> IdDz {reject}
+    "for" -> IdDz {reject}
+    "acquire" -> IdDz {reject}
+    "NaN" -> IdDz {reject}
+    "class" -> IdDz {reject}
+    "Infinity" -> IdDz {reject}
+    "false" -> IdDz {reject}
+    "int" -> IdDz {reject}
+    "super" -> IdDz {reject}
+    "print" -> IdDz {reject}
+    "spawn" -> IdDz {reject}
+    "throw" -> IdDz {reject}
+    "Main" -> IdDz {reject}
+    "return" -> IdDz {reject}
+    [\-\+]? [0-9]+ -> DzIntDz
+    [\+\-]?[0-9]+"."[0-9]+([eE][\+\-]?[0-9]+)?([fFdD]|([pP][0-9]+[xX][0-9]+))? -> DzFloatDz
+    [\+\-]?"Infinity"([fFdD]|([pP][0-9]+[xX][0-9]+))? -> DzFloatDz
+    "Infinity" -> DzFloatDz {reject}
+    "NaN"([fFdD]|([pP][0-9]+[xX][0-9]+))? -> DzFloatDz
+    "NaN" -> DzFloatDz {reject}
+    "\"" ((~[\"\n\r\\]) | (((([\\][nrtf\"\\]) | ([\\][x][0-9a-fA-F][0-9a-fA-F])) | ([\\][u][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F])) | ([\\][U][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F])))* "\"" -> DzStringDz
+context-free syntax
+    DzStringDz -> DzString {cons("DzString1Const")}
+    IdDz -> Id {cons("Id1Const")}
+    DzIntDz -> DzInt {cons("DzInt1Const")}
+    DzFloatDz -> DzFloat {cons("DzFloat1Const")}
+
+
+context-free restrictions
+    Id -/- [A-Za-z0-9\_]
+    DzInt -/-  [0-9]

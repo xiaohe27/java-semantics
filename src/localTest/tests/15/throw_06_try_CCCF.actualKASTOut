@@ -1,0 +1,11 @@
+Caught Exception2
+finally
+Done!
+<generatedTop>
+    <T>
+        <out>
+            `'#ostream`(#token("1","#Int"))`'#buffer`(
+              #token("\"\"","#String"))
+        </out>
+    </T>
+</generatedTop>
